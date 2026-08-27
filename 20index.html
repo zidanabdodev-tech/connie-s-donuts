@@ -1,0 +1,815 @@
+{<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connie's Donuts | اطلب دلوقتي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#F25CA8;
+    --pink-light:#FFE3F0;
+    --bg:#FDEBF3;
+    --magenta:#9C1457;
+    --plum:#3A0F27;
+    --choc:#3B2013;
+    --choc-2:#5A3220;
+    --cream:#FFFDF9;
+    --gold:#F4B942;
+    --line:#F6C7DE;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    font-family:'Nunito',sans-serif;
+    color:var(--plum);
+    padding-bottom:90px;
+  }
+  h1,h2,h3,.display{
+    font-family:'Baloo 2',sans-serif;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+
+  /* ---------- drip divider ---------- */
+  .drip{
+    width:100%;
+    height:34px;
+    display:block;
+  }
+  .drip path{fill:var(--choc);}
+  .drip-thin{height:18px;}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:var(--cream);
+    border-bottom:3px solid var(--pink);
+  }
+  .header-inner{
+    max-width:960px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 18px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:800;
+    font-size:1.25rem;
+    color:var(--magenta);
+  }
+  .brand .ring{
+    width:38px;height:38px;border-radius:50%;
+    background:conic-gradient(var(--pink) 0 100%);
+    position:relative;
+    box-shadow:inset 0 0 0 8px var(--cream), inset 0 0 0 10px var(--magenta);
+  }
+  .cart-pill{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:var(--magenta);
+    color:#fff;
+    border:none;
+    padding:9px 16px;
+    border-radius:999px;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:.95rem;
+    cursor:pointer;
+    transition:transform .15s ease;
+  }
+  .cart-pill:active{transform:scale(.94);}
+  .cart-count{
+    background:var(--gold);
+    color:var(--choc);
+    border-radius:50%;
+    min-width:20px;height:20px;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:.75rem;
+    padding:0 4px;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:var(--choc);
+    padding-bottom:0;
+  }
+  .hero-inner{
+    max-width:960px;
+    margin:0 auto;
+    padding:38px 20px 46px;
+    text-align:center;
+    color:var(--cream);
+  }
+  .hero .eyebrow{
+    font-family:'Baloo 2',sans-serif;
+    color:var(--gold);
+    letter-spacing:.12em;
+    font-size:.85rem;
+    font-weight:700;
+  }
+  .hero h1{
+    font-size:2.6rem;
+    margin:8px 0 6px;
+    color:#fff;
+    line-height:1.15;
+  }
+  .hero h1 span{color:var(--pink);}
+  .hero p{
+    font-size:1.05rem;
+    opacity:.85;
+    max-width:520px;
+    margin:0 auto 22px;
+  }
+  .hero-cta{
+    display:inline-flex;
+    gap:12px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .btn{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    border-radius:999px;
+    padding:13px 26px;
+    border:none;
+    cursor:pointer;
+    font-size:1rem;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:active{transform:scale(.96);}
+  .btn-primary{
+    background:var(--pink);
+    color:#fff;
+    box-shadow:0 6px 0 var(--magenta);
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--cream);
+    border:2px solid rgba(255,255,255,.35);
+  }
+
+  /* ---------- section ---------- */
+  main{max-width:960px;margin:0 auto;padding:0 16px;scroll-margin-top:70px;}
+  .section-head{
+    text-align:center;
+    margin:44px 0 22px;
+  }
+  .section-head .tag{
+    display:inline-block;
+    background:var(--pink-light);
+    color:var(--magenta);
+    font-weight:800;
+    font-family:'Baloo 2',sans-serif;
+    padding:5px 16px;
+    border-radius:999px;
+    font-size:.8rem;
+    margin-bottom:8px;
+  }
+  .section-head h2{
+    font-size:1.7rem;
+    color:var(--magenta);
+    margin:0;
+  }
+  .section-head p{margin:6px 0 0;opacity:.75;font-size:.92rem;}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    gap:16px;
+    margin-bottom:10px;
+  }
+
+  .card{
+    background:var(--cream);
+    border-radius:20px;
+    padding:16px;
+    border:2px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    position:relative;
+    overflow:hidden;
+  }
+  .card .badge{
+    position:absolute;
+    top:12px;
+    left:12px;
+    background:var(--gold);
+    color:var(--choc);
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:.72rem;
+    padding:3px 10px;
+    border-radius:999px;
+  }
+  .icon-row{display:flex;justify-content:center;padding:6px 0;}
+  .card h3{
+    margin:0;
+    font-size:1.05rem;
+    color:var(--plum);
+    text-align:center;
+  }
+  .card .desc{
+    font-size:.82rem;
+    opacity:.65;
+    text-align:center;
+    min-height:18px;
+  }
+  .price-row{
+    display:flex;
+    justify-content:center;
+    align-items:baseline;
+    gap:8px;
+  }
+  .price-old{
+    text-decoration:line-through;
+    opacity:.45;
+    font-size:.9rem;
+  }
+  .price-new{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:800;
+    font-size:1.35rem;
+    color:var(--magenta);
+  }
+  .price-new small{font-size:.65rem;font-weight:600;}
+
+  .qty-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    margin-top:auto;
+  }
+  .qty-btn{
+    width:32px;height:32px;
+    border-radius:50%;
+    border:2px solid var(--pink);
+    background:#fff;
+    color:var(--magenta);
+    font-size:1.1rem;
+    font-weight:800;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    line-height:1;
+  }
+  .qty-btn:active{transform:scale(.9);}
+  .qty-val{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    min-width:20px;
+    text-align:center;
+  }
+  .add-btn{
+    margin-top:6px;
+    width:100%;
+    background:var(--magenta);
+    color:#fff;
+    border:none;
+    border-radius:12px;
+    padding:10px;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    cursor:pointer;
+    font-size:.9rem;
+  }
+  .add-btn.added{background:#2E9E5B;}
+
+  /* svg donut icon */
+  .donut-icon{width:74px;height:74px;}
+
+  /* ---------- floating cart bar ---------- */
+  .cart-bar{
+    position:fixed;
+    bottom:0;left:0;right:0;
+    background:var(--choc);
+    color:#fff;
+    padding:12px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    transform:translateY(110%);
+    transition:transform .25s ease;
+    z-index:60;
+    box-shadow:0 -6px 20px rgba(0,0,0,.25);
+  }
+  .cart-bar.show{transform:translateY(0);}
+  .cart-bar .info{font-family:'Baloo 2',sans-serif;font-size:.95rem;}
+  .cart-bar .info b{color:var(--gold);}
+  .cart-bar button{
+    background:var(--pink);
+    color:#fff;
+    border:none;
+    padding:11px 20px;
+    border-radius:999px;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    cursor:pointer;
+  }
+
+  /* ---------- modal ---------- */
+  .overlay{
+    position:fixed;inset:0;
+    background:rgba(58,15,39,.55);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    z-index:100;
+  }
+  .overlay.show{display:flex;}
+  .sheet{
+    background:var(--cream);
+    width:100%;
+    max-width:520px;
+    border-radius:24px 24px 0 0;
+    padding:22px 20px 26px;
+    max-height:85vh;
+    overflow-y:auto;
+    animation:slideup .25s ease;
+  }
+  @media (min-width:560px){
+    .overlay{align-items:center;}
+    .sheet{border-radius:24px;}
+  }
+  @keyframes slideup{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .sheet h3{
+    margin:0 0 14px;
+    color:var(--magenta);
+    font-size:1.3rem;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .sheet .close{
+    background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--plum);
+  }
+  .line-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px dashed var(--line);
+    font-size:.92rem;
+  }
+  .line-item .rm{
+    background:none;border:none;color:#c0392b;font-size:.85rem;cursor:pointer;text-decoration:underline;
+  }
+  .total-row{
+    display:flex;justify-content:space-between;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:800;
+    font-size:1.15rem;
+    color:var(--magenta);
+    margin:14px 0 18px;
+  }
+  .empty-msg{text-align:center;opacity:.6;padding:20px 0;font-size:.9rem;}
+  .customer-info{
+    margin:14px 0 4px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .field label{
+    display:block;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:.85rem;
+    color:var(--magenta);
+    margin-bottom:5px;
+  }
+  .field input,.field textarea{
+    width:100%;
+    border:2px solid var(--line);
+    border-radius:12px;
+    padding:10px 12px;
+    font-family:'Nunito',sans-serif;
+    font-size:.92rem;
+    background:#fff;
+    color:var(--plum);
+    resize:none;
+  }
+  .field input:focus,.field textarea:focus{
+    outline:none;
+    border-color:var(--pink);
+  }
+  .field.invalid input,.field.invalid textarea{
+    border-color:#c0392b;
+  }
+  .field .err{
+    display:none;
+    color:#c0392b;
+    font-size:.75rem;
+    margin-top:4px;
+  }
+  .field.invalid .err{display:block;}
+  .msg-preview{
+    background:var(--pink-light);
+    border-radius:14px;
+    padding:12px 14px;
+    font-size:.85rem;
+    white-space:pre-wrap;
+    line-height:1.6;
+    margin-bottom:16px;
+    max-height:160px;
+    overflow-y:auto;
+  }
+  .send-btn{
+    width:100%;
+    background:linear-gradient(135deg,#5b8def,#3f6fe0);
+    color:#fff;
+    border:none;
+    padding:14px;
+    border-radius:14px;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:1rem;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    margin-bottom:10px;
+  }
+  .alt-row{
+    display:flex;gap:10px;
+  }
+  .alt-btn{
+    flex:1;
+    background:#fff;
+    border:2px solid var(--line);
+    color:var(--plum);
+    padding:10px;
+    border-radius:12px;
+    font-size:.82rem;
+    font-weight:700;
+    cursor:pointer;
+    text-align:center;
+    text-decoration:none;
+  }
+  .note{
+    font-size:.75rem;
+    opacity:.55;
+    text-align:center;
+    margin-top:14px;
+  }
+
+  /* footer */
+  footer{
+    text-align:center;
+    padding:40px 20px 20px;
+    font-size:.85rem;
+    opacity:.7;
+  }
+  footer b{color:var(--magenta);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand"><span class="ring"></span> Connie's Donuts</div>
+    <button class="cart-pill" onclick="openCart()">
+      🧺 السلة <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">دونتس طازة كل يوم • الإسكندرية</div>
+    <h1>حلاوة <span>كونيز</span><br>وصلتلك بضغطة</h1>
+    <p>اختار أصنافك، وابعت طلبك على طول في ماسنجر — من غير مكالمات ولا استنى.</p>
+    <div class="hero-cta">
+      <a href="#menu" class="btn btn-primary" onclick="return scrollToMenu(event)">🍩 شوف المنيو</a>
+      <a href="tel:035927033" class="btn btn-ghost">📞 اتصل بيها</a>
+    </div>
+  </div>
+  <svg class="drip" viewBox="0 0 1200 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 H1200 V10 C1170,10 1170,30 1140,30 C1110,30 1110,14 1080,14 C1050,14 1050,34 1020,34 C990,34 990,8 960,8 C930,8 930,26 900,26 C870,26 870,12 840,12 C810,12 810,32 780,32 C750,32 750,6 720,6 C690,6 690,28 660,28 C630,28 630,16 600,16 C570,16 570,36 540,36 C510,36 510,10 480,10 C450,10 450,24 420,24 C390,24 390,8 360,8 C330,8 330,30 300,30 C270,30 270,14 240,14 C210,14 210,34 180,34 C150,34 150,10 120,10 C90,10 90,26 60,26 C30,26 30,8 0,8 Z" fill="var(--bg)"/>
+  </svg>
+</section>
+
+<main id="menu">
+
+  <!-- HOLY -->
+  <div class="section-head">
+    <span class="tag">سناك مسلّي</span>
+    <h2>هولي — دونتس مقرمشة ع السيخ</h2>
+    <p>لقمات دونات متبلة بصوصات وتوبينج متنوع، مقدمة في علبة هدية</p>
+  </div>
+  <div class="grid" id="grid-holy"></div>
+
+  <!-- BOXES -->
+  <div class="section-head">
+    <span class="tag">أفضل قيمة</span>
+    <h2>علب الدونتس</h2>
+    <p>حلقة كلاسيك ولا محشي كريمي — بعروض مخفّضة</p>
+  </div>
+  <div class="grid" id="grid-boxes"></div>
+
+  <!-- HOT COMBO -->
+  <div class="section-head">
+    <span class="tag">كومبو</span>
+    <h2>مشروب ساخن + دونة</h2>
+    <p>فنجانك المفضل مع دونة هدية بسعر واحد</p>
+  </div>
+  <div class="grid" id="grid-hot"></div>
+
+  <!-- COLD COMBO -->
+  <div class="section-head">
+    <span class="tag">كومبو</span>
+    <h2>مشروب بارد + دونة</h2>
+    <p>انتعاش وحلاوة مع بعض في طلب واحد</p>
+  </div>
+  <div class="grid" id="grid-cold"></div>
+
+</main>
+
+<footer>
+  <p><b>Connie's Donuts</b> — الإسكندرية</p>
+  <p>📞 03-5927033 &nbsp;|&nbsp; الطلب عبر ماسنجر أسرع وأسهل</p>
+</footer>
+
+<!-- floating cart bar -->
+<div class="cart-bar" id="cartBar">
+  <div class="info">🛒 <b id="barCount">0</b> صنف — <b id="barTotal">0</b> جنيه</div>
+  <button onclick="openCart()">اعرض السلة</button>
+</div>
+
+<!-- cart modal -->
+<div class="overlay" id="overlay" onclick="closeOnOverlay(event)">
+  <div class="sheet">
+    <h3>طلبك <button class="close" onclick="closeCart()">✕</button></h3>
+    <div id="lines"></div>
+    <div id="totalWrap" style="display:none">
+      <div class="total-row"><span>الإجمالي</span><span id="modalTotal">0 جنيه</span></div>
+      <div class="customer-info">
+        <div class="field" id="fieldPhone">
+          <label for="custPhone">رقم الهاتف</label>
+          <input type="tel" id="custPhone" placeholder="01xxxxxxxxx" inputmode="tel" oninput="refreshPreview()">
+          <div class="err">من فضلك اكتب رقم هاتفك</div>
+        </div>
+        <div class="field" id="fieldAddress">
+          <label for="custAddress">العنوان</label>
+          <textarea id="custAddress" rows="2" placeholder="المنطقة، الشارع، رقم العمارة/الدور..." oninput="refreshPreview()"></textarea>
+          <div class="err">من فضلك اكتب عنوانك بالتفصيل</div>
+        </div>
+      </div>
+      <div class="msg-preview" id="msgPreview"></div>
+      <button class="send-btn" id="sendBtn">💬 ابعت الطلب في ماسنجر</button>
+      <div class="alt-row">
+        <button class="alt-btn" onclick="copyOrder()">📋 نسخ الطلب</button>
+        <a class="alt-btn" id="fbPageLink" href="https://www.facebook.com/share/1GMGmiNnmW/" target="_blank" rel="noopener">📄 افتح صفحتنا</a>
+      </div>
+      <p class="note">هيتفتحلك ماسنجر ورسالتك هتبقى جاهزة — تمام تبعتها.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============ CONFIG ============
+   ⚠️ غيّر الرقم ده لو مفيش تطابق مع صفحتك:
+   جبته من صفحة "Connie's Donuts, Alexandria" على فيسبوك.
+   لو زرار ماسنجر فتح شات غلط، دور على الـ Page ID الصح من
+   إعدادات صفحتك (Settings > Page Info) وحطه هنا بدل الرقم ده. */
+const MESSENGER_PAGE_ID = "100087737633436";
+const FB_PAGE_LINK = "https://www.facebook.com/share/1GMGmiNnmW/";
+/* ================================= */
+
+const donutSVG = (c1,c2)=>`
+<svg class="donut-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="50" cy="50" r="42" fill="#E8B888"/>
+  <circle cx="50" cy="50" r="34" fill="${c1}"/>
+  <circle cx="50" cy="50" r="13" fill="#FDEBF3"/>
+  <circle cx="34" cy="30" r="3" fill="${c2}"/>
+  <circle cx="60" cy="24" r="3" fill="${c2}"/>
+  <circle cx="72" cy="42" r="3" fill="${c2}"/>
+  <circle cx="28" cy="52" r="3" fill="${c2}"/>
+  <circle cx="66" cy="66" r="3" fill="${c2}"/>
+</svg>`;
+
+const cupSVG = (c1)=>`
+<svg class="donut-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect x="30" y="30" width="40" height="45" rx="4" fill="${c1}"/>
+  <rect x="26" y="22" width="48" height="10" rx="4" fill="#3B2013"/>
+  <path d="M40,10 C36,18 44,20 40,28" stroke="#3B2013" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M52,10 C48,18 56,20 52,28" stroke="#3B2013" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>`;
+
+const iceSVG = (c1)=>`
+<svg class="donut-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <path d="M35,25 H65 L60,80 a10,10 0 0 1 -20,0 Z" fill="${c1}" opacity=".85"/>
+  <rect x="30" y="18" width="40" height="9" rx="3" fill="#3B2013"/>
+  <rect x="46" y="4" width="5" height="20" rx="2" fill="#fff"/>
+</svg>`;
+
+const boxSVG = (c1)=>`
+<svg class="donut-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect x="14" y="42" width="72" height="40" rx="4" fill="${c1}"/>
+  <rect x="14" y="42" width="72" height="10" fill="#fff" opacity=".25"/>
+  <path d="M14,42 L50,20 L86,42" fill="none" stroke="${c1}" stroke-width="8" stroke-linejoin="round"/>
+</svg>`;
+
+const ITEMS = {
+  holy:[
+    {id:"holy12", name:"هولي بوكس", desc:"12 قطعة على السيخ", price:25, icon:boxSVG("#C2185B")},
+    {id:"holy24", name:"هولي بوكس", desc:"24 قطعة على السيخ", price:45, icon:boxSVG("#9C1457"), badge:"الأكبر"},
+  ],
+  boxes:[
+    {id:"box3ring", name:"علبة 3 دونات حلقة", desc:"", price:95, old:105, icon:donutSVG("#F25CA8","#fff")},
+    {id:"box3filled", name:"علبة 3 دونات محشي", desc:"", price:140, old:150, icon:donutSVG("#7B3F1D","#F4B942")},
+    {id:"box6ring", name:"علبة 6 دونات حلقة", desc:"", price:185, old:210, icon:donutSVG("#F25CA8","#fff"), badge:"عرض"},
+    {id:"box6filled", name:"علبة 6 دونات محشي", desc:"", price:275, old:300, icon:donutSVG("#7B3F1D","#F4B942"), badge:"عرض"},
+  ],
+  hot:[
+    {id:"espresso", name:"إسبريسو + دونة", desc:"", price:85, icon:cupSVG("#3B2013")},
+    {id:"latte", name:"لاتيه + دونة", desc:"", price:85, icon:cupSVG("#8A5A32")},
+    {id:"americano", name:"أمريكانو + دونة", desc:"", price:85, icon:cupSVG("#4A2A16")},
+    {id:"cappuccino", name:"كابتشينو + دونة", desc:"", price:85, icon:cupSVG("#A9764C")},
+    {id:"macchiato", name:"ميكاتو + دونة", desc:"", price:85, icon:cupSVG("#6B4128")},
+  ],
+  cold:[
+    {id:"icelatte", name:"آيس لاتيه + دونة", desc:"", price:95, icon:iceSVG("#C9A17A")},
+    {id:"icecoffee", name:"آيس كوفي + دونة", desc:"", price:95, icon:iceSVG("#8A5A32")},
+    {id:"icechoc", name:"آيس شوكليت + دونة", desc:"", price:95, icon:iceSVG("#5A3220")},
+    {id:"lemonmint", name:"ليمون بالنعناع + دونة", desc:"", price:95, icon:iceSVG("#8FBF6B")},
+  ],
+};
+
+let cart = {}; // id -> {item, qty}
+
+function render(){
+  for(const key in ITEMS){
+    const grid = document.getElementById("grid-"+key);
+    grid.innerHTML = ITEMS[key].map(it=>`
+      <div class="card">
+        ${it.badge?`<span class="badge">${it.badge}</span>`:""}
+        <div class="icon-row">${it.icon}</div>
+        <h3>${it.name}</h3>
+        <div class="desc">${it.desc||"&nbsp;"}</div>
+        <div class="price-row">
+          ${it.old?`<span class="price-old">${it.old}</span>`:""}
+          <span class="price-new">${it.price} <small>جنيه</small></span>
+        </div>
+        <div class="qty-row">
+          <button class="qty-btn" onclick="changeQty('${it.id}',-1)">−</button>
+          <span class="qty-val" id="qty-${it.id}">0</span>
+          <button class="qty-btn" onclick="changeQty('${it.id}',1)">+</button>
+        </div>
+        <button class="add-btn" id="add-${it.id}" onclick="addToCart('${it.id}')">أضف للسلة</button>
+      </div>
+    `).join("");
+  }
+}
+
+function findItem(id){
+  for(const key in ITEMS){
+    const found = ITEMS[key].find(i=>i.id===id);
+    if(found) return found;
+  }
+}
+
+let pendingQty = {};
+function changeQty(id, delta){
+  const cur = pendingQty[id] || 0;
+  pendingQty[id] = Math.max(0, cur+delta);
+  document.getElementById("qty-"+id).textContent = pendingQty[id];
+}
+
+function addToCart(id){
+  const qty = pendingQty[id] || 1;
+  if(!cart[id]) cart[id] = {item:findItem(id), qty:0};
+  cart[id].qty += qty;
+  pendingQty[id] = 0;
+  document.getElementById("qty-"+id).textContent = 0;
+  const btn = document.getElementById("add-"+id);
+  btn.textContent = "✓ اتضافت";
+  btn.classList.add("added");
+  setTimeout(()=>{btn.textContent="أضف للسلة"; btn.classList.remove("added");},900);
+  updateBar();
+}
+
+function cartTotals(){
+  let count=0, total=0;
+  Object.values(cart).forEach(({item,qty})=>{count+=qty; total+=qty*item.price;});
+  return {count,total};
+}
+
+function updateBar(){
+  const {count,total} = cartTotals();
+  document.getElementById("cartCount").textContent = count;
+  document.getElementById("barCount").textContent = count;
+  document.getElementById("barTotal").textContent = total;
+  document.getElementById("cartBar").classList.toggle("show", count>0);
+}
+
+function buildMessage(){
+  const {total} = cartTotals();
+  const phone = document.getElementById("custPhone")?.value.trim() || "";
+  const address = document.getElementById("custAddress")?.value.trim() || "";
+  let lines = ["أهلاً، عايز أطلب من Connie's Donuts 🍩", ""];
+  Object.values(cart).forEach(({item,qty})=>{
+    lines.push(`• ${item.name} × ${qty} = ${item.price*qty} جنيه`);
+  });
+  lines.push("");
+  lines.push(`الإجمالي: ${total} جنيه`);
+  lines.push("");
+  lines.push(`رقم الهاتف: ${phone || "—"}`);
+  lines.push(`العنوان: ${address || "—"}`);
+  return lines.join("\n");
+}
+
+function refreshPreview(){
+  const preview = document.getElementById("msgPreview");
+  if(preview) preview.textContent = buildMessage();
+}
+
+function validateCustomerInfo(){
+  const phone = document.getElementById("custPhone").value.trim();
+  const address = document.getElementById("custAddress").value.trim();
+  const fieldPhone = document.getElementById("fieldPhone");
+  const fieldAddress = document.getElementById("fieldAddress");
+  fieldPhone.classList.toggle("invalid", phone.length===0);
+  fieldAddress.classList.toggle("invalid", address.length===0);
+  return phone.length>0 && address.length>0;
+}
+
+function renderCart(){
+  const {count,total} = cartTotals();
+  const linesDiv = document.getElementById("lines");
+  const totalWrap = document.getElementById("totalWrap");
+  if(count===0){
+    linesDiv.innerHTML = `<div class="empty-msg">السلة فاضية — رجّع تحت واختار حاجة حلوة 🍩</div>`;
+    totalWrap.style.display="none";
+    return;
+  }
+  linesDiv.innerHTML = Object.entries(cart).map(([id,{item,qty}])=>`
+    <div class="line-item">
+      <span>${item.name} × ${qty}</span>
+      <span>${item.price*qty} ج <button class="rm" onclick="removeItem('${id}')">حذف</button></span>
+    </div>
+  `).join("");
+  totalWrap.style.display="block";
+  document.getElementById("modalTotal").textContent = total+" جنيه";
+  document.getElementById("msgPreview").textContent = buildMessage();
+}
+
+function removeItem(id){
+  delete cart[id];
+  updateBar();
+  renderCart();
+}
+
+function openCart(){
+  renderCart();
+  document.getElementById("overlay").classList.add("show");
+}
+function closeCart(){
+  document.getElementById("overlay").classList.remove("show");
+}
+function closeOnOverlay(e){
+  if(e.target.id==="overlay") closeCart();
+}
+
+document.getElementById("sendBtn").addEventListener("click", ()=>{
+  if(!validateCustomerInfo()) return;
+  const text = encodeURIComponent(buildMessage());
+  const url = `https://m.me/${MESSENGER_PAGE_ID}?text=${text}`;
+  window.open(url, "_blank");
+});
+
+function copyOrder(){
+  if(!validateCustomerInfo()) return;
+  const text = buildMessage();
+  navigator.clipboard.writeText(text).then(()=>{
+    alert("اتنسخ الطلب ✅ الصقه في شات ماسنجر");
+  }).catch(()=>{
+    alert("مقدرش أنسخ تلقائي، انسخ النص من المربع فوق يدوي.");
+  });
+}
+
+render();
+updateBar();
+
+function scrollToMenu(e){
+  e.preventDefault();
+  document.getElementById("menu").scrollIntoView({behavior:"smooth", block:"start"});
+  return false;
+}
+</script>
+
+</body>
+</html>
