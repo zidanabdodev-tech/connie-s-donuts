@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connie's Donuts | الذ دونات ومخبوزات طازجة</title>
+    <!-- خطوط جوجل وأيقونات FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-pink: #ff85a1;
+            --secondary-pink: #ffa6b6;
+            --accent-gold: #e5a93b;
+        }
+
+        /* الوضع الداكن (دونات شوكولاتة داكنة) */
+        html.dark-mode {
+            --bg-main: #120e0b;
+            --bg-card: #1f1713;
+            --text-main: #f5eedc;
+            --text-sub: #b5a495;
+            --nav-bg: rgba(18, 14, 11, 0.85);
+            --border-color: #3d2c22;
+            --glow-effect: 0 0 20px rgba(255, 133, 161, 0.25);
+        }
+
+        /* الوضع الفاتح (دونات فانيليا بيضاء) */
+        html.light-mode {
+            --bg-main: #fcf6f7;
+            --bg-card: #ffffff;
+            --text-main: #4a3321;
+            --text-sub: #6e6057;
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --border-color: #ffe3e8;
+            --glow-effect: 0 0 20px rgba(255, 133, 161, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* شريط التنبيهات المتحرك */
+        .top-ticker {
+            background: linear-gradient(90deg, var(--primary-pink), #ff5c84, var(--primary-pink));
+            background-size: 200% auto;
+            animation: gradientMove 4s linear infinite;
+            color: white;
+            text-align: center;
+            padding: 8px 0;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1001;
+            text-transform: uppercase;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* شريط التنقل مع إضاءة هادئة */
+        header {
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 33px;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--primary-pink);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--accent-gold);
+            display: inline-block;
+            animation: slowRotateAndGlow 6s linear infinite;
+            filter: drop-shadow(0 0 8px rgba(229, 169, 59, 0.8));
+        }
+
+        @keyframes slowRotateAndGlow {
+            0% {
+                transform: rotate(0deg);
+                filter: drop-shadow(0 0 6px rgba(229, 169, 59, 0.6));
+            }
+            50% {
+                filter: drop-shadow(0 0 14px rgba(255, 215, 0, 1));
+            }
+            100% {
+                transform: rotate(360deg);
+                filter: drop-shadow(0 0 6px rgba(229, 169, 59, 0.6));
+            }
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            transition: 0.3s;
+            position: relative;
+            font-size: 15px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            right: 0;
+            background-color: var(--primary-pink);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+            right: auto;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-pink);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .theme-switch-container {
+            display: flex;
+            align-items: center;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            padding: 3px;
+            gap: 4px;
+            box-shadow: var(--glow-effect);
+        }
+
+        .donut-mode-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0.5;
+        }
+
+        .donut-dark {
+            background: #362114;
+            color: #d4a373;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .donut-light {
+            background: #fff8f0;
+            color: #e5a93b;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        html.dark-mode .donut-dark,
+        html.light-mode .donut-light {
+            opacity: 1;
+            transform: scale(1.15);
+            box-shadow: 0 0 10px var(--primary-pink);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary-pink), #ff6b8b);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            box-shadow: 0 4px 15px rgba(255, 133, 161, 0.4);
+            border: 3px solid var(--bg-card);
+            transition: 0.3s;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background-color: var(--text-main);
+            color: var(--bg-main);
+            font-size: 10px;
+            font-weight: bold;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 2px solid var(--bg-card);
+        }
+
+        /* قسم الواجهة (Hero) */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('1000510232.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 140px 20px 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            color: white;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-pink);
+            font-weight: 800;
+            font-size: 13px;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 6px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 133, 161, 0.3);
+        }
+
+        .hero-content h1 {
+            font-size: 40px;
+            font-weight: 900;
+            color: white;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.7);
+        }
+
+        .hero-content h1 span {
+            color: var(--primary-pink);
+            text-shadow: 0 0 15px rgba(255, 133, 161, 0.8), 0 0 30px rgba(255, 133, 161, 0.5);
+            display: inline-block;
+        }
+
+        .hero-content p {
+            font-size: 16px;
+            color: #f1f1f1;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 380px;
+            margin: 0 auto;
+        }
+
+        .btn-primary-custom {
+            background: linear-gradient(45deg, var(--primary-pink), #ff5c84);
+            color: white;
+            padding: 14px 25px;
+            border-radius: 35px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 15px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(255, 133, 161, 0.5);
+            transition: 0.3s;
+            border: 2px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(255, 133, 161, 0.8);
+        }
+
+        .btn-secondary-custom {
+            background: rgba(40, 40, 40, 0.7);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 14px 25px;
+            border-radius: 35px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 15px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-secondary-custom:hover {
+            background: rgba(60, 60, 60, 0.9);
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        /* قسم المنيو والتصنيفات */
+        .menu-section {
+            padding: 90px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 34px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .section-title span {
+            color: var(--primary-pink);
+            text-shadow: 0 0 15px rgba(255, 133, 161, 0.3);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-sub);
+            margin-bottom: 40px;
+            font-size: 15px;
+        }
+
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 40px;
+        }
+
+        .tab-btn {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-weight: 700;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 13px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--primary-pink);
+            color: white;
+            border-color: var(--primary-pink);
+            box-shadow: 0 6px 20px rgba(255, 133, 161, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .menu-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--glow-effect);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 22px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(255, 133, 161, 0.3);
+            border-color: var(--primary-pink);
+        }
+
+        .menu-card-info h3 {
+            font-size: 18px;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .menu-card-info .ar-name {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .product-category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-main);
+            box-shadow: 0 2px 10px rgba(255, 133, 161, 0.15);
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+
+        .product-category-badge i {
+            color: var(--primary-pink);
+        }
+
+        .menu-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+
+        .price {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--primary-pink);
+        }
+
+        /* تحسين أزرار التحكم في الكمية والحذف داخل كارت المنتج */
+        .card-actions-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .add-btn {
+            background: rgba(255, 133, 161, 0.15);
+            color: var(--text-main);
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .add-btn:hover {
+            background: var(--primary-pink);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .remove-btn {
+            background: rgba(255, 75, 75, 0.15);
+            color: #ff4b4b;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .remove-btn:hover {
+            background: #ff4b4b;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .item-quantity-badge {
+            font-size: 14px;
+            font-weight: 900;
+            color: var(--primary-pink);
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* قسم صور المنيو الرسمي */
+        .menu-images-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .menu-images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .menu-img-box {
+            background: var(--bg-card);
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: var(--glow-effect);
+            transition: 0.4s;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            min-height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-img-box:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px rgba(255, 133, 161, 0.3);
+            border-color: var(--primary-pink);
+        }
+
+        .menu-img-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            display: block;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cinematic-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1f1713, #2d1e18, #120e0b);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            border-radius: 18px;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .cinematic-fallback::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 45%,
+                rgba(255, 215, 0, 0.25) 50%,
+                transparent 55%
+            );
+            transform: rotate(25deg);
+            animation: sunBeamGlow 5s infinite linear;
+        }
+
+        @keyframes sunBeamGlow {
+            0% { transform: translateY(-100%) rotate(25deg); }
+            100% { transform: translateY(100%) rotate(25deg); }
+        }
+
+        .cinematic-fallback i {
+            font-size: 45px;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
+            animation: pulseIcon 3s infinite ease-in-out;
+        }
+
+        @keyframes pulseIcon {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 18px rgba(255, 215, 0, 1)); }
+        }
+
+        .cinematic-fallback h4 {
+            font-size: 20px;
+            font-weight: 900;
+            color: #f5eedc;
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px rgba(255, 133, 161, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .cinematic-fallback p {
+            font-size: 13px;
+            color: #b5a495;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* نافذة السلة والطلب المنبثقة (Modal) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 25px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 22px;
+            cursor: pointer;
+            color: var(--text-sub);
+            transition: 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-pink);
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            color: var(--text-main);
+            text-align: center;
+        }
+
+        .cart-items-list {
+            max-height: 180px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .cart-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-main);
+            color: var(--text-main);
+            border-radius: 12px;
+            outline: none;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 10px rgba(255, 133, 161, 0.2);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: linear-gradient(45deg, var(--primary-pink), #ff6b8b);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 133, 161, 0.4);
+            transition: 0.3s;
+            margin-top: 8px;
+        }
+
+        .checkout-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .contact-info {
+            background: var(--bg-card);
+            padding: 50px 20px;
+            text-align: center;
+            border-top: 2px solid var(--border-color);
+            margin-top: 60px;
+        }
+
+        .contact-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+            color: var(--text-sub);
+            font-size: 15px;
+        }
+
+        .contact-details div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-details i {
+            color: var(--primary-pink);
+            font-size: 18px;
+        }
+
+        footer {
+            background-color: var(--bg-card);
+            color: var(--text-sub);
+            text-align: center;
+            padding: 25px 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 20px;
+            margin-top: 12px;
+        }
+
+        .social-icons a {
+            color: var(--text-main);
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-pink);
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شريط التنبيهات العلوي المتحرك -->
+    <div class="top-ticker">
+        ORDER NOW + FRESH DAILY + CONNIE'S DONUTS +
+    </div>
+
+    <!-- الهيدر -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span>Connie's Donuts</span>
+                <i class="fa-solid fa-cookie-bite"></i>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#">الرئيسية</a></li>
+                <li><a href="#menu">قائمة الطعام</a></li>
+                <li><a href="#official-menus">المنيو الرسمي</a></li>
+                <li><a href="#contact">تواصل معنا</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div class="theme-switch-container">
+                    <button class="donut-mode-btn donut-dark" onclick="setTheme('dark-mode')" title="Dark Donut (شوكولاتة)"><i class="fa-solid fa-cookie"></i></button>
+                    <button class="donut-mode-btn donut-light" onclick="setTheme('light-mode')" title="Light Donut (فانيليا)"><i class="fa-solid fa-cookie"></i></button>
+                </div>
+
+                <div class="cart-icon" onclick="openCartModal()">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- نافذة إتمام الطلب والبيانات (Modal) -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeCartModal()">&times;</span>
+            <h3>سلة الطلبات والبيانات</h3>
+            
+            <div class="cart-items-list" id="cartItemsList">
+                <p style="text-align: center; color: var(--text-sub); font-size: 13px;">السلة فارغة حالياً</p>
+            </div>
+
+            <form id="checkoutForm" onsubmit="sendOrderToMessenger(event)">
+                <div class="form-group">
+                    <label>الاسم:</label>
+                    <input type="text" id="clientName" required placeholder="ادخل اسمك الكامل">
+                </div>
+                <div class="form-group">
+                    <label>رقم الهاتف:</label>
+                    <input type="tel" id="clientPhone" required placeholder="ادخل رقم هاتفك">
+                </div>
+                <div class="form-group">
+                    <label>العنوان:</label>
+                    <input type="text" id="clientAddress" required placeholder="ادخل عنوان التوصيل بالتفصيل">
+                </div>
+                <button type="submit" class="checkout-btn">إرسال الطلب عبر الماسنجر</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- واجهة البداية (Hero) -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fa-solid fa-cookie-bite"></i> ALEXANDRIA'S SWEETEST SPOT · CAMP SHIZAR
+            </div>
+            <h1>عالم السعادة الحلوة في دونات من <span>Connie's Donuts</span></h1>
+            <p>صُنعت بكل حب كل يوم. خيال في كل قضمة.</p>
+            
+            <div class="hero-buttons">
+                <a href="#menu" class="btn-primary-custom">
+                    <i class="fa-solid fa-donut"></i> View Full Menu
+                </a>
+                <a href="javascript:void(0)" onclick="openCartModal()" class="btn-secondary-custom">
+                    Order via Messenger
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم المنيو والتفاعلي -->
+    <section class="menu-section" id="menu">
+        <h2 class="section-title">قائمة <span>الطعام والشراب</span></h2>
+        <p class="section-subtitle">اختر ما يناسب شهيتك من أطباقنا المميزة</p>
+
+        <!-- أزرار التصنيفات -->
+        <div class="menu-tabs">
+            <button class="tab-btn active" onclick="filterMenu('all')">الكل</button>
+            <button class="tab-btn" onclick="filterMenu('filled')">دونات محشوة</button>
+            <button class="tab-btn" onclick="filterMenu('ring')">حلقات دونات</button>
+            <button class="tab-btn" onclick="filterMenu('dubai')">دبي وبراونيز</button>
+            <button class="tab-btn" onclick="filterMenu('bakery')">مخبوزات</button>
+            <button class="tab-btn" onclick="filterMenu('drinks')">مشروبات</button>
+        </div>
+
+        <!-- قائمة المنتجات -->
+        <div class="menu-grid" id="menuGrid">
+            <!-- العناصر تتعبأ ديناميكياً -->
+        </div>
+    </section>
+
+    <!-- قسم صور المنيو الرسمي -->
+    <section class="menu-images-section" id="official-menus">
+        <h2 class="section-title">صور المنيو <span>الرسمي</span></h2>
+        <p class="section-subtitle">يمكنك الاطلاع على المنيو الأصلي المعتمد لدينا</p>
+        
+        <div class="menu-images-grid">
+            <div class="menu-img-box">
+                <img src="1000510169_2.png" alt="المنيو الرسمي - الصفحة الأولى" onerror="handleImageError(this, 'المنيو الرسمي - الصفحة الأولى')">
+            </div>
+            <div class="menu-img-box">
+                <img src="1000510170_2.png" alt="المنيو الرسمي - الصفحة الثانية" onerror="handleImageError(this, 'المنيو الرسمي - الصفحة الثانية')">
+            </div>
+            <div class="menu-img-box">
+                <img src="1000510171_2.png" alt="المنيو الرسمي - الصفحة الثالثة" onerror="handleImageError(this, 'المنيو الرسمي - الصفحة الثالثة')">
+            </div>
+        </div>
+    </section>
+
+    <!-- معلومات التواصل -->
+    <section class="contact-info" id="contact">
+        <h3>معلومات التواصل وموقعنا</h3>
+        <div class="contact-details">
+            <div><i class="fa-solid fa-phone"></i> 03-5927033</div>
+            <div><i class="fa-solid fa-location-dot"></i> 75 Ahmed Qamha street Camp shizar, Alexandria, Egypt</div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 Connie's Donuts</p>
+        <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        function setTheme(themeName) {
+            document.documentElement.className = themeName;
+            localStorage.setItem('connie_theme', themeName);
+        }
+
+        function handleImageError(imgElement, titleText) {
+            const box = imgElement.parentElement;
+            imgElement.style.display = 'none';
+            box.innerHTML = `
+                <div class="cinematic-fallback">
+                    <i class="fa-solid fa-cookie-bite"></i>
+                    <h4>${titleText}</h4>
+                    <p>Connie's Donuts Official Menu</p>
+                </div>
+            `;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('connie_theme') || 'dark-mode';
+            document.documentElement.className = savedTheme;
+            displayMenu('all');
+        });
+
+        const MESSENGER_PAGE_ID = "100087737633436";
+
+        const menuItems = [
+            { id: "lotus_filled", name: "Lotus Filled Donut", ar: "لوتس", price: "50 L.E", category: "filled", catName: "دونات محشوة" },
+            { id: "coffee_filled", name: "Coffee Filled Donut", ar: "كوفي", price: "50 L.E", category: "filled", catName: "دونات محشوة" },
+            { id: "w_cookies_cream", name: "W. Cookies & Cream", ar: "وايت كوكيز و كريمة", price: "50 L.E", category: "filled", catName: "دونات محشوة" },
+            { id: "boston_cream", name: "Boston Cream", ar: "بوسطن كريم", price: "50 L.E", category: "filled", catName: "دونات محشوة" },
+            { id: "cookies_cream", name: "Cookies & Cream", ar: "كوكيز اند كريمة", price: "50 L.E", category: "filled", catName: "دونات محشوة" },
+            { id: "blueberry_filled", name: "Blueberry Filled", ar: "توت بري", price: "50 L.E", category: "filled", catName: "دونات محشوة" },
+            { id: "red_velvet_filled", name: "Red Velvet Filled", ar: "ريد فيلفت", price: "50 L.E", category: "filled", catName: "دونات محشوة" },
+            { id: "caramel_filled", name: "Caramel Filled", ar: "كراميل", price: "50 L.E", category: "filled", catName: "دونات محشوة" },
+            { id: "cinnamon_filled", name: "Cinnamon Filled", ar: "قرفه", price: "50 L.E", category: "filled", catName: "دونات محشوة" },
+            { id: "strawberry_filled", name: "Strawberry Filled", ar: "فراولة", price: "50 L.E", category: "filled", catName: "دونات محشوة" },
+            { id: "white_hazelnuts", name: "White Hazelnuts", ar: "وايت شوكليت بندق", price: "60 L.E", category: "filled", catName: "دونات محشوة" },
+            { id: "choco_hazelnuts", name: "Choco Hazelnuts", ar: "شوكليت بندق", price: "60 L.E", category: "filled", catName: "دونات محشوة" },
+            { id: "pistchio_filled", name: "Pistchio Filled", ar: "فستق", price: "65 L.E", category: "filled", catName: "دونات محشوة" },
+            { id: "kinder_filled", name: "Kinder Filled", ar: "كندر", price: "65 L.E", category: "filled", catName: "دونات محشوة" },
+            { id: "marshmallow_filled", name: "Marshmallow Filled", ar: "مارشميلو", price: "60 L.E", category: "filled", catName: "دونات محشوة" },
+
+            { id: "choco_sprinkels", name: "Choco Sprinkels", ar: "سبرنكلز", price: "35 L.E", category: "ring", catName: "حلقات دونات" },
+            { id: "choco_hazelnuts_ring", name: "Choco Hazelnuts Ring", ar: "شوكليت بندق", price: "45 L.E", category: "ring", catName: "حلقات دونات" },
+            { id: "pistchio_ring", name: "Pistchio Ring", ar: "فستق", price: "45 L.E", category: "ring", catName: "حلقات دونات" },
+            { id: "coffee_ring", name: "Coffee Ring", ar: "كوفي", price: "35 L.E", category: "ring", catName: "حلقات دونات" },
+            { id: "cookies_cream_ring", name: "Cookies & Cream Ring", ar: "كوكيز اند كريمة", price: "35 L.E", category: "ring", catName: "حلقات دونات" },
+            { id: "blueberry_ring", name: "Blueberry Ring", ar: "توت بري", price: "35 L.E", category: "ring", catName: "حلقات دونات" },
+            { id: "red_velvet_ring", name: "Red Velvet Ring", ar: "ريد فيلفت", price: "35 L.E", category: "ring", catName: "حلقات دونات" },
+            { id: "caramel_ring", name: "Caramel Ring", ar: "كراميل", price: "35 L.E", category: "ring", catName: "حلقات دونات" },
+            { id: "white_hazelnuts_ring", name: "White Hazelnuts Ring", ar: "وايت شوكليت بندق", price: "45 L.E", category: "ring", catName: "حلقات دونات" },
+            { id: "strawberry_ring", name: "Strawberry Ring", ar: "فراولة", price: "35 L.E", category: "ring", catName: "حلقات دونات" },
+            { id: "cinnamon_ring", name: "Cinnamon Ring", ar: "قرفه", price: "35 L.E", category: "ring", catName: "حلقات دونات" },
+            { id: "lotus_ring", name: "Lotus Ring", ar: "لوتس", price: "35 L.E", category: "ring", catName: "حلقات دونات" },
+            { id: "kinder_ring", name: "Kinder Ring", ar: "كندر", price: "45 L.E", category: "ring", catName: "حلقات دونات" },
+            { id: "plain_ring", name: "Plain Ring", ar: "سادة", price: "35 L.E", category: "ring", catName: "حلقات دونات" },
+
+            { id: "dubai_donut", name: "Dubai Donut", ar: "دونات دبي", price: "60 L.E", category: "dubai", catName: "دبي وبراونيز" },
+            { id: "kinder_land", name: "Kinder Land", ar: "كندر لاند", price: "60 L.E", category: "dubai", catName: "دبي وبراونيز" },
+            { id: "abo_zabi", name: "Abo Zabi", ar: "أبو ظبي", price: "60 L.E", category: "dubai", catName: "دبي وبراونيز" },
+            { id: "golden_louts", name: "Golden Louts", ar: "جولدن لوتس", price: "60 L.E", category: "dubai", catName: "دبي وبراونيز" },
+            { id: "porto", name: "Porto", ar: "بورتو", price: "60 L.E", category: "dubai", catName: "دبي وبراونيز" },
+            { id: "brownies_chocolate", name: "Brownies Chocolate", ar: "براونيز شوكليت", price: "65 L.E", category: "dubai", catName: "دبي وبراونيز" },
+            { id: "brownies_toffee", name: "Brownies Toffee", ar: "براونيز توفي", price: "65 L.E", category: "dubai", catName: "دبي وبراونيز" },
+
+            { id: "plain_croissant", name: "Plain Croissant", ar: "كرواسون سادة", price: "35 L.E", category: "bakery", catName: "مخبوزات" },
+            { id: "cheese_olive_pate", name: "Cheese & Olive Pate", ar: "باتيه جبنة وزيتون", price: "40 L.E", category: "bakery", catName: "مخبوزات" },
+            { id: "cheddar_cheese_pate", name: "Cheddar Cheese Pate", ar: "باتيه جبنة شيدر", price: "40 L.E", category: "bakery", catName: "مخبوزات" },
+            { id: "cheese_croissant", name: "Cheese Croissant", ar: "كرواسون جبنة", price: "40 L.E", category: "bakery", catName: "مخبوزات" },
+            { id: "muffin", name: "Muffin", ar: "مافن", price: "25 L.E", category: "bakery", catName: "مخبوزات" },
+            { id: "long_donut", name: "Long Donut", ar: "لونج دونات", price: "45 L.E", category: "bakery", catName: "مخبوزات" },
+            { id: "cinnabon", name: "Cinnabon", ar: "سينابون", price: "65 L.E", category: "bakery", catName: "مخبوزات" },
+            { id: "molten_chocolate_cake", name: "Molten Chocolate Cake", ar: "مولتن شوكلت كيك", price: "75 L.E", category: "bakery", catName: "مخبوزات" },
+
+            { id: "ice_tea", name: "Ice Tea", ar: "شاي مثلج", price: "50 L.E", category: "drinks", catName: "مشروبات" },
+            { id: "ice_mocha", name: "Ice Mocha", ar: "ايس موكا", price: "70 L.E", category: "drinks", catName: "مشروبات" },
+            { id: "ice_nescafe", name: "Ice Nescafe", ar: "ايس نسكافيه", price: "55 L.E", category: "drinks", catName: "مخبوزات" },
+            { id: "ice_chocolate", name: "Ice Chocolate", ar: "ايس شوكليت", price: "60 L.E", category: "drinks", catName: "مشروبات" },
+            { id: "mojito", name: "Mojito", ar: "موهيتو", price: "65 L.E", category: "drinks", catName: "مشروبات" },
+            { id: "turkish_coffee", name: "Turkish Coffee", ar: "قهوة تركي", price: "35 / 40 L.E", category: "drinks", catName: "مشروبات" },
+            { id: "espresso", name: "Espresso", ar: "اسبريسو", price: "55 / 60 L.E", category: "drinks", catName: "مشروبات" },
+            { id: "spanish_latte", name: "Spanish Latte", ar: "لاتيه اسباني", price: "75 L.E", category: "drinks", catName: "مشروبات" },
+            { id: "chocolate_frappe", name: "Chocolate Frappé", ar: "فرابتشينو شوكليت", price: "75 L.E", category: "drinks", catName: "مشروبات" },
+            { id: "vanilla_milkshake", name: "Vanilla Milkshake", ar: "فانيليا ميلك شيك", price: "65 L.E", category: "drinks", catName: "مشروبات" }
+        ];
+
+        let cart = {}; // تم تغييرها إلى كائن لتتبع كميات كل منتج حسب الـ id
+
+        function displayMenu(category) {
+            const grid = document.getElementById('menuGrid');
+            grid.innerHTML = '';
+            const filtered = category === 'all' ? menuItems : menuItems.filter(item => item.category === category);
+
+            filtered.forEach(item => {
+                const qty = cart[item.id] ? cart[item.id].quantity : 0;
+                
+                const card = document.createElement('div');
+                card.className = 'menu-card';
+                card.innerHTML = `
+                    <div class="menu-card-info">
+                        <div class="product-category-badge">
+                            <i class="fa-solid fa-cookie-bite"></i>
+                            <span>${item.catName}</span>
+                        </div>
+                        <h3>${item.name}</h3>
+                        <span class="ar-name">${item.ar}</span>
+                    </div>
+                    <div class="menu-card-footer">
+                        <span class="price">${item.price}</span>
+                        <div class="card-actions-wrapper">
+                            ${qty > 0 ? `
+                                <button class="remove-btn" onclick="decreaseQuantity('${item.id}')" title="حذف أو تقليل"><i class="fa-solid fa-minus"></i></button>
+                                <span class="item-quantity-badge">${qty}</span>
+                            ` : ''}
+                            <button class="add-btn" onclick="increaseQuantity('${item.id}', '${item.name} (${item.ar})', '${item.price}')" title="إضافة"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterMenu(category) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            displayMenu(category);
+        }
+
+        function increaseQuantity(id, name, price) {
+            if (!cart[id]) {
+                cart[id] = { name, price, quantity: 1 };
+            } else {
+                cart[id].quantity++;
+            }
+            updateCartUI();
+            // إعادة عرض المنيو الحالي لتحديث الأزرار والأعداد على الكروت مباشرة
+            const activeCategory = document.querySelector('.tab-btn.active').getAttribute('onclick').match(/'([^']+)'/)[1];
+            displayMenu(activeCategory);
+        }
+
+        function decreaseQuantity(id) {
+            if (cart[id]) {
+                cart[id].quantity--;
+                if (cart[id].quantity <= 0) {
+                    delete cart[id];
+                }
+            }
+            updateCartUI();
+            const activeCategory = document.querySelector('.tab-btn.active').getAttribute('onclick').match(/'([^']+)'/)[1];
+            displayMenu(activeCategory);
+        }
+
+        function updateCartUI() {
+            let totalCount = 0;
+            const listContainer = document.getElementById('cartItemsList');
+            
+            const keys = Object.keys(cart);
+            if (keys.length === 0) {
+                document.querySelector('.cart-count').innerText = 0;
+                listContainer.innerHTML = '<p style="text-align: center; color: var(--text-sub); font-size: 13px;">السلة فارغة حالياً</p>';
+                return;
+            }
+
+            listContainer.innerHTML = '';
+            keys.forEach((id, index) => {
+                const item = cart[id];
+                totalCount += item.quantity;
+                listContainer.innerHTML += `
+                    <div class="cart-item-row">
+                        <span>${index + 1}. ${item.name} (×${item.quantity})</span>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="color: var(--primary-pink); font-weight: bold;">${item.price}</span>
+                            <button onclick="decreaseQuantity('${id}')" style="background:none; border:none; color:#ff4b4b; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+            document.querySelector('.cart-count').innerText = totalCount;
+        }
+
+        function openCartModal() {
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function closeCartModal() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        function sendOrderToMessenger(event) {
+            event.preventDefault();
+
+            const keys = Object.keys(cart);
+            if (keys.length === 0) {
+                alert("برجاء إضافة منتجات للسلة أولاً!");
+                return;
+            }
+
+            const name = document.getElementById('clientName').value;
+            const phone = document.getElementById('clientPhone').value;
+            const address = document.getElementById('clientAddress').value;
+
+            let orderText = `🍩 *طلب جديد من متجر Connie's Donuts* 🍩%0A`;
+            orderText += `-----------------------------------%0A`;
+            keys.forEach((id, index) => {
+                const item = cart[id];
+                orderText += `${index + 1}. ${item.name} (الكمية: ${item.quantity}) - *${item.price}*%0A`;
+            });
+            orderText += `-----------------------------------%0A`;
+            orderText += `📋 *بيانات العميل والتوصيل:*%0A`;
+            orderText += `👤 الاسم: ${name}%0A`;
+            orderText += `📞 الهاتف: ${phone}%0A`;
+            orderText += `📍 العنوان: ${address}%0A`;
+            orderText += `-----------------------------------%0A`;
+            orderText += `✨ شكراً لاختياركم Connie's Donuts!`;
+
+            const messengerUrl = `https://m.me/${MESSENGER_PAGE_ID}?text=${orderText}`;
+            window.open(messengerUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
