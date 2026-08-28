@@ -498,7 +498,7 @@
             color: var(--primary-pink);
         }
 
-        /* تحسين أزرار التحكم في الكمية والحذف داخل كارت المنتج */
+        /* أزرار التحكم في الكمية والحذف */
         .card-actions-wrapper {
             display: flex;
             align-items: center;
@@ -553,122 +553,6 @@
             color: var(--primary-pink);
             min-width: 20px;
             text-align: center;
-        }
-
-        /* قسم صور المنيو الرسمي */
-        .menu-images-section {
-            padding: 60px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .menu-images-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .menu-img-box {
-            background: var(--bg-card);
-            padding: 15px;
-            border-radius: 20px;
-            box-shadow: var(--glow-effect);
-            transition: 0.4s;
-            border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
-            min-height: 380px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .menu-img-box:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 30px rgba(255, 133, 161, 0.3);
-            border-color: var(--primary-pink);
-        }
-
-        .menu-img-box img {
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            display: block;
-            position: relative;
-            z-index: 2;
-        }
-
-        .cinematic-fallback {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1f1713, #2d1e18, #120e0b);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            text-align: center;
-            border-radius: 18px;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .cinematic-fallback::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent 45%,
-                rgba(255, 215, 0, 0.25) 50%,
-                transparent 55%
-            );
-            transform: rotate(25deg);
-            animation: sunBeamGlow 5s infinite linear;
-        }
-
-        @keyframes sunBeamGlow {
-            0% { transform: translateY(-100%) rotate(25deg); }
-            100% { transform: translateY(100%) rotate(25deg); }
-        }
-
-        .cinematic-fallback i {
-            font-size: 45px;
-            color: var(--accent-gold);
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
-            animation: pulseIcon 3s infinite ease-in-out;
-        }
-
-        @keyframes pulseIcon {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6)); }
-            50% { transform: scale(1.1); filter: drop-shadow(0 0 18px rgba(255, 215, 0, 1)); }
-        }
-
-        .cinematic-fallback h4 {
-            font-size: 20px;
-            font-weight: 900;
-            color: #f5eedc;
-            margin-bottom: 8px;
-            text-shadow: 0 0 10px rgba(255, 133, 161, 0.5);
-            position: relative;
-            z-index: 2;
-        }
-
-        .cinematic-fallback p {
-            font-size: 13px;
-            color: #b5a495;
-            position: relative;
-            z-index: 2;
         }
 
         /* نافذة السلة والطلب المنبثقة (Modal) */
@@ -813,6 +697,16 @@
             gap: 10px;
         }
 
+        .contact-details a {
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .contact-details a:hover {
+            color: var(--primary-pink);
+        }
+
         .contact-details i {
             color: var(--primary-pink);
             font-size: 18px;
@@ -868,7 +762,6 @@
             <ul class="nav-links">
                 <li><a href="#">الرئيسية</a></li>
                 <li><a href="#menu">قائمة الطعام</a></li>
-                <li><a href="#official-menus">المنيو الرسمي</a></li>
                 <li><a href="#contact">تواصل معنا</a></li>
             </ul>
 
@@ -918,7 +811,7 @@
     <section class="hero">
         <div class="hero-content">
             <div class="hero-badge">
-                <i class="fa-solid fa-cookie-bite"></i> ALEXANDRIA'S SWEETEST SPOT · CAMP SHIZAR
+                <i class="fa-solid fa-cookie-bite"></i> 75 Ahmed Qamha street Camp shizar, Alexandria
             </div>
             <h1>عالم السعادة الحلوة في دونات من <span>Connie's Donuts</span></h1>
             <p>صُنعت بكل حب كل يوم. خيال في كل قضمة.</p>
@@ -955,30 +848,12 @@
         </div>
     </section>
 
-    <!-- قسم صور المنيو الرسمي -->
-    <section class="menu-images-section" id="official-menus">
-        <h2 class="section-title">صور المنيو <span>الرسمي</span></h2>
-        <p class="section-subtitle">يمكنك الاطلاع على المنيو الأصلي المعتمد لدينا</p>
-        
-        <div class="menu-images-grid">
-            <div class="menu-img-box">
-                <img src="1000510169_2.png" alt="المنيو الرسمي - الصفحة الأولى" onerror="handleImageError(this, 'المنيو الرسمي - الصفحة الأولى')">
-            </div>
-            <div class="menu-img-box">
-                <img src="1000510170_2.png" alt="المنيو الرسمي - الصفحة الثانية" onerror="handleImageError(this, 'المنيو الرسمي - الصفحة الثانية')">
-            </div>
-            <div class="menu-img-box">
-                <img src="1000510171_2.png" alt="المنيو الرسمي - الصفحة الثالثة" onerror="handleImageError(this, 'المنيو الرسمي - الصفحة الثالثة')">
-            </div>
-        </div>
-    </section>
-
-    <!-- معلومات التواصل -->
+    <!-- معلومات التواصل والموقع -->
     <section class="contact-info" id="contact">
         <h3>معلومات التواصل وموقعنا</h3>
         <div class="contact-details">
-            <div><i class="fa-solid fa-phone"></i> 03-5927033</div>
             <div><i class="fa-solid fa-location-dot"></i> 75 Ahmed Qamha street Camp shizar, Alexandria, Egypt</div>
+            <div><i class="fa-solid fa-phone"></i> <a href="tel:+201211941186">+20 12 11941186</a></div>
         </div>
     </section>
 
@@ -996,18 +871,6 @@
         function setTheme(themeName) {
             document.documentElement.className = themeName;
             localStorage.setItem('connie_theme', themeName);
-        }
-
-        function handleImageError(imgElement, titleText) {
-            const box = imgElement.parentElement;
-            imgElement.style.display = 'none';
-            box.innerHTML = `
-                <div class="cinematic-fallback">
-                    <i class="fa-solid fa-cookie-bite"></i>
-                    <h4>${titleText}</h4>
-                    <p>Connie's Donuts Official Menu</p>
-                </div>
-            `;
         }
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -1079,7 +942,7 @@
             { id: "vanilla_milkshake", name: "Vanilla Milkshake", ar: "فانيليا ميلك شيك", price: "65 L.E", category: "drinks", catName: "مشروبات" }
         ];
 
-        let cart = {}; // تم تغييرها إلى كائن لتتبع كميات كل منتج حسب الـ id
+        let cart = {};
 
         function displayMenu(category) {
             const grid = document.getElementById('menuGrid');
@@ -1091,6 +954,7 @@
                 
                 const card = document.createElement('div');
                 card.className = 'menu-card';
+                card.setAttribute('data-id', item.id);
                 card.innerHTML = `
                     <div class="menu-card-info">
                         <div class="product-category-badge">
@@ -1128,9 +992,7 @@
                 cart[id].quantity++;
             }
             updateCartUI();
-            // إعادة عرض المنيو الحالي لتحديث الأزرار والأعداد على الكروت مباشرة
-            const activeCategory = document.querySelector('.tab-btn.active').getAttribute('onclick').match(/'([^']+)'/)[1];
-            displayMenu(activeCategory);
+            updateCardActions(id);
         }
 
         function decreaseQuantity(id) {
@@ -1141,8 +1003,30 @@
                 }
             }
             updateCartUI();
-            const activeCategory = document.querySelector('.tab-btn.active').getAttribute('onclick').match(/'([^']+)'/)[1];
-            displayMenu(activeCategory);
+            updateCardActions(id);
+        }
+
+        function updateCardActions(id) {
+            const card = document.querySelector(`.menu-card[data-id="${id}"]`);
+            if (!card) return;
+            
+            const qty = cart[id] ? cart[id].quantity : 0;
+            const actionsWrapper = card.querySelector('.card-actions-wrapper');
+            
+            let htmlContent = '';
+            if (qty > 0) {
+                htmlContent += `<button class="remove-btn" onclick="decreaseQuantity('${id}')" title="حذف أو تقليل"><i class="fa-solid fa-minus"></i></button>`;
+                htmlContent += `<span class="item-quantity-badge">${qty}</span>`;
+            }
+            htmlContent += `<button class="add-btn" onclick="increaseQuantity('${id}', '', '')" title="إضافة"><i class="fa-solid fa-plus"></i></button>`;
+            
+            actionsWrapper.innerHTML = htmlContent;
+            
+            const addBtn = actionsWrapper.querySelector('.add-btn');
+            const itemData = menuItems.find(i => i.id === id);
+            if (itemData) {
+                addBtn.setAttribute('onclick', `increaseQuantity('${itemData.id}', '${itemData.name} (${itemData.ar})', '${itemData.price}')`);
+            }
         }
 
         function updateCartUI() {
